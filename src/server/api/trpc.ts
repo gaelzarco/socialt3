@@ -35,15 +35,15 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
-  const { req } = opts
-  const sesh = getAuth(req)
+  const { req } = opts;
+  const sesh = getAuth(req);
 
-  const userId = sesh.userId
+  const userId = sesh.userId;
 
   return {
     prisma,
     userId,
-  }
+  };
 };
 
 /**
@@ -113,7 +113,7 @@ const isAuthed = t.middleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       userId: ctx.userId,
-      prisma
+      prisma,
     },
   });
 });

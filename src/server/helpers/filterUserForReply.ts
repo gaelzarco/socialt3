@@ -1,11 +1,11 @@
-import { type User } from '@clerk/nextjs/dist/api';
+import { type User } from "@clerk/backend/dist/api";
 
 const filterUserForReply = (user: User) => {
-    return {
-        id: user.id,
-        profileImageUrl: user.profileImageUrl,
-        firstName: user.firstName,
-    }
-}
+  return {
+    id: user.id,
+    profileImageUrl: user.imageUrl,
+    firstName: user.firstName,
+  };
+};
 
-export default filterUserForReply
+export default filterUserForReply;

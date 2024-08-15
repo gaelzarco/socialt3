@@ -10,7 +10,7 @@ export const appRouter = createTRPCRouter({
   posts: postsRouter,
   replies: repliesRouter,
   likes: likesRouter,
-  search: searchRouter
+  search: searchRouter,
 });
 
 // export type definition of API

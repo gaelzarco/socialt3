@@ -6,22 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url          = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:../sqlite/dev.db"
   relationMode = "prisma"
 }
 
 model User {
   id            String    @id @default(cuid())
-  userName         String?  @unique  @db.VarChar(20)
-  name         String?  @db.VarChar(20)
+  userName         String?  @unique  
+  name         String?   
   email         String   @unique
   profileImageURL         String? 
-  bio     String?   @db.VarChar(500)
+  bio     String?   
   posts         Post[] 
   likes         Like[]
   replies         Reply[]
@@ -31,9 +27,9 @@ model Post {
   id        String   @id @default(cuid())
   userId    String
   userName  String?
-  media     String? @db.VarChar(150)
+  media     String? 
   link      String?
-  body      String @db.VarChar(300)
+  body      String 
   likes     Like[]
   replies   Reply[]
   createdAt DateTime @default(now())
@@ -50,7 +46,7 @@ model Reply {
   userName  String?
   media     String?
   link      String?
-  body      String   @db.VarChar(500)
+  body      String   
   likes     Like[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,7 +62,7 @@ model Like {
   userId    String
   postId    String?
   replyId   String?  
-  postType  PostType
+  postType  String
   createdAt DateTime @default(now())
   user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -75,9 +71,4 @@ model Like {
   @@index([userId])
   @@index([postId])
   @@index([replyId])
-}
-
-enum PostType {
-    POST
-    REPLY
 }
