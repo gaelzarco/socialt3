@@ -1,0 +1,11 @@
+name: moxie
+services:
+  app:
+    image: moxie_img
+    build:
+      context: .
+      dockerfile: next_prisma.Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+        - .env

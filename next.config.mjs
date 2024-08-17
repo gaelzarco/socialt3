@@ -51,7 +51,7 @@ const config = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-
   swcMinify: true,
+  output: "standalone",
 };
 export default config;
