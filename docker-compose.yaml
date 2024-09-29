@@ -1,11 +1,25 @@
 name: moxie
 services:
+  db:
+    image: alpine:latest
+    volumes:
+      - sqlite_data:/data/db
+    command: sh -c "apk --no-cache add sqlite && mkdir -p /data/db && touch /data/db/dev.db && chown -R 1001:1001 /data/db && chown 1001:1001 /data/db/dev.db" 
+    container_name: moxie_db
+
   app:
-    image: moxie_img
     build:
       context: .
-      dockerfile: next_prisma.Dockerfile
+      dockerfile: next.Dockerfile
     ports:
       - 3000:3000
     env_file:
-        - .env
+      - .env
+    depends_on:
+     - db
+    volumes:
+     - sqlite_data:/app/db
+    container_name: moxie_app
+
+volumes:
+  sqlite_data:
